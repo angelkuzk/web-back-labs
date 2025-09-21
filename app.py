@@ -103,9 +103,17 @@ def counter():
         Запрошенный адрес: ''' + url + '''<br>
         Ваш IP-адрес: ''' + client_ip + '''<br>
         <a href="/lab1">Назад к главной</a>
+        <br>
+        <a href="/reset_counter">Очистить счётчик</a>
     </body>
 </html>
 '''
+
+@app.route('/reset_counter')
+def reset_counter():
+    global count
+    count = 0
+    return redirect('/counter')
 
 @app.route("/info")
 def info():    
