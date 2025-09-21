@@ -12,6 +12,7 @@ def lab1():
                     <li><a href="/author">author</a></li>
                     <li><a href="/web">web</a></li>
                     <li><a href="/image">image</a></li>
+                    <li><a href="/counter">counter</a></li>
                 </ul>
             </body>
         </html>"""    
@@ -58,6 +59,21 @@ def image():
         <img src="''' + path + '''" width="800">
         <br>
         <a href="/lab1">Назад к главной</a>
+    </body>
+</html>
+'''
+
+count = 0
+
+@app.route('/counter') 
+def counter():
+    global count
+    count += 1
+    return '''
+<!doctype html>
+<html>
+    <body>
+        Сколько раз вы сюда заходили: ''' + str(count) + '''
     </body>
 </html>
 '''
