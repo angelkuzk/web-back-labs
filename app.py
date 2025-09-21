@@ -16,11 +16,10 @@ def lab1():
             </head>
             <body>
                 <ul>
-                    <h1>Лабораторная работа 1</h1>
-                    <li><a href="/author">author</a></li>
-                    <li><a href="/web">web</a></li>
-                    <li><a href="/image">image</a></li>
-                    <li><a href="/counter">counter</a></li>
+                    <li><a href="/lab1/author">author</a></li>
+                    <li><a href="/lab1/web">web</a></li>
+                    <li><a href="/lab1/image">image</a></li>
+                    <li><a href="/lab1/counter">counter</a></li>
                 </ul>
             </body>
         </html>"""    
@@ -61,7 +60,7 @@ def author():
             </body>
         </html>"""
 
-@app.route('/image') 
+@app.route('/lab1/image') 
 def image():
     path = url_for("static", filename="oak.jpg")
     css_url = url_for('static', filename='lab1.css')
@@ -82,7 +81,7 @@ def image():
 
 count = 0
 
-@app.route('/counter') 
+@app.route('/lab1/counter') 
 def counter():
     global count
     count += 1
@@ -115,7 +114,7 @@ def reset_counter():
     count = 0
     return redirect('/counter')
 
-@app.route("/info")
+@app.route("/lab1/info")
 def info():    
     return redirect("/author")
 
