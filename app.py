@@ -364,8 +364,12 @@ def image():
         <br>
         <a href="/lab1">Назад к главной</a>
     </body>
-</html>
-'''
+</html>''', 200, {
+        'Content-Language': 'ru-RU',  
+        'X-Image-Type': 'Nature',     
+        'X-Server-Location': 'Novosibirsk',  
+        'X-Student-Name': 'Kuznetsova Angelina' 
+    }
 
 count = 0
 
