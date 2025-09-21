@@ -7,63 +7,98 @@ def not_found(err):
     return "Нет такой страницы", 404
 
 @app.route("/")
+@app.route("/index")
+def index():
+    return '''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+        <title>НГТУ, ФБ, Лабораторные работы</title>
+    </head>
+    <body>
+        <header>
+            <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
+        </header>
+        
+        <main>
+            <nav>
+                <ul>
+                    <li><a href="/lab1">Первая лабораторная</a></li>
+                </ul>
+            </nav>
+        </main>
+        
+        <footer>
+            <hr>
+            &copy; Кузнецова Ангелина Андреевна, ФБИ-33, 3 курс, 2025
+        </footer>
+    </body>
+</html>'''
+
 @app.route("/lab1")
 def lab1():
-    return """<!doctype html>
-        <html>
-            <head>
-                <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
-            </head>
-            <body>
-                <ul>
-                    <li><a href="/lab1/author">author</a></li>
-                    <li><a href="/lab1/web">web</a></li>
-                    <li><a href="/lab1/image">image</a></li>
-                    <li><a href="/lab1/counter">counter</a></li>
-                </ul>
-            </body>
-        </html>"""    
+    return '''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+    </head>
+    <body>
+        <ul>
+            <h1>Лабораторная работа 1</h1>
+            <li><a href="/lab1/author">author</a></li>
+            <li><a href="/lab1/web">web</a></li>
+            <li><a href="/lab1/image">image</a></li>
+            <li><a href="/lab1/counter">counter</a></li>
+        </ul>
+    </body>
+</html>''' 
 
-@app.route("/web")
+@app.route("/lab1/web")  
 def web():
-    return """<!doctype html>
-        <html>
-            <head>
-                <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
-            </head>
-            <body>
-                <h1>web-сервер на flask</h1>
-                <a href="/author">author</a>
-                <br>
-                <a href="/lab1">Назад к главной</a>
-            </body>
-        </html>"""
+    css_url = url_for('static', filename='lab1.css')
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_url}">
+    </head>
+    <body>
+        <h1>web-сервер на flask</h1>
+        <a href="/lab1/author">author</a>
+        <br>
+        <a href="/lab1">Назад к главной</a>
+    </body>
+</html>'''
 
-@app.route("/author")
+@app.route("/lab1/author")  
 def author():
     name = "Кузнецова Ангелина Андреевна"
     group = "ФБИ-33"
     faculty = "ФБ"
+    css_url = url_for('static', filename='lab1.css')
 
-    return """<!doctype html>
-        <html>
-            <head>
-                <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
-            </head>
-            <body>
-                <p>Студент: """ + name + """</p>
-                <p>Группа: """ + group + """</p>
-                <p>Факультет: """ + faculty + """</p>
-                <a href="/web">web</a>
-                <br>
-                <a href="/lab1">Назад к главной</a>
-            </body>
-        </html>"""
+    return f'''
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{css_url}">
+    </head>           
+    <body>
+        <p>Студент: {name}</p>
+        <p>Группа: {group}</p>
+        <p>Факультет: {faculty}</p>
+        <a href="/lab1/web">web</a>
+        <br>
+        <a href="/lab1">Назад к главной</a>
+    </body>
+</html>'''
 
 @app.route('/lab1/image') 
 def image():
     path = url_for("static", filename="oak.jpg")
-    css_url = url_for('static', filename='lab1.css')
+    css_url = url_for('static', filename='lab1.css')  
     return f'''
 <!doctype html>
 <html>
@@ -88,19 +123,21 @@ def counter():
     time = datetime.datetime.today()
     url = request.url
     client_ip = request.remote_addr
-    return '''
+    css_url = url_for('static', filename='lab1.css')
+    
+    return f'''
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" href="{css_url}">
     </head>
     <body>
         <h2>Счетчик посещений</h2>
-        Сколько раз вы сюда заходили: ''' + str(count) + '''
+        Сколько раз вы сюда заходили: {count}
         <hr>
-        Дата и время: ''' + str(time) + '''<br>
-        Запрошенный адрес: ''' + url + '''<br>
-        Ваш IP-адрес: ''' + client_ip + '''<br>
+        Дата и время: {time}<br>
+        Запрошенный адрес: {url}<br>
+        Ваш IP-адрес: {client_ip}<br>
         <a href="/lab1">Назад к главной</a>
         <br>
         <a href="/reset_counter">Очистить счётчик</a>
@@ -112,19 +149,20 @@ def counter():
 def reset_counter():
     global count
     count = 0
-    return redirect('/counter')
+    return redirect('/lab1/counter') 
 
 @app.route("/lab1/info")
 def info():    
-    return redirect("/author")
+    return redirect("/lab1/author") 
 
 @app.route("/created")
 def created():
-    return '''
+    css_url = url_for('static', filename='lab1.css')
+    return f'''
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" href="{css_url}">
     </head>
     <body>
         <h1>Создано успешно</h1>
