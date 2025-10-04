@@ -681,3 +681,109 @@ books = [
 @app.route('/lab2/books/')
 def books_list():
     return render_template('books.html', books=books)
+dogs = [
+    {
+        'name': 'Лабрадор-ретривер',
+        'image': 'labrador.jpg',
+        'description': 'Дружелюбная и энергичная порода, отличный компаньон для семьи'
+    },
+    {
+        'name': 'Немецкая овчарка',
+        'image': 'german_shepherd.jpg',
+        'description': 'Умная и универсальная порода, часто используется в полиции и армии'
+    },
+    {
+        'name': 'Золотистый ретривер',
+        'image': 'golden_retriever.jpg',
+        'description': 'Добродушная и интеллигентная порода с золотистой шерстью'
+    },
+    {
+        'name': 'Французский бульдог',
+        'image': 'french_bulldog.jpg',
+        'description': 'Компактная порода с большими ушами и дружелюбным характером'
+    },
+    {
+        'name': 'Бульдог',
+        'image': 'bulldog.jpg',
+        'description': 'Спокойная порода с морщинистой мордой и коренастым телом'
+    },
+    {
+        'name': 'Бигль',
+        'image': 'beagle.jpg',
+        'description': 'Охотничья порода с острым нюхом и дружелюбным нравом'
+    },
+    {
+        'name': 'Пудель',
+        'image': 'poodle.jpg',
+        'description': 'Умная порода с кудрявой шерстью, известная своей гипоаллергенностью'
+    },
+    {
+        'name': 'Ротвейлер',
+        'image': 'rottweiler.jpg',
+        'description': 'Сильная и преданная порода с выразительной внешностью'
+    },
+    {
+        'name': 'Сибирский хаски',
+        'image': 'siberian_husky.jpg',
+        'description': 'Энергичная порода с густой шерстью и голубыми глазами'
+    },
+    {
+        'name': 'Такса',
+        'image': 'dachshund.jpg',
+        'description': 'Небольшая порода с длинным телом и короткими лапами'
+    },
+    {
+        'name': 'Доберман',
+        'image': 'doberman.jpg',
+        'description': 'Элегантная и athletic порода с репутацией отличного защитника'
+    },
+    {
+        'name': 'Боксер',
+        'image': 'boxer.jpg',
+        'description': 'Энергичная и игривая порода с выразительной мордой'
+    },
+    {
+        'name': 'Ши-тцу',
+        'image': 'shih_tzu.jpg',
+        'description': 'Декоративная порода с длинной шелковистой шерстью'
+    },
+    {
+        'name': 'Австралийская овчарка',
+        'image': 'australian_shepherd.jpg',
+        'description': 'Умная и активная порода, отличный пастух'
+    },
+    {
+        'name': 'Вельш-корги',
+        'image': 'corgi.jpg',
+        'description': 'Небольшая пастушья порода с короткими лапами и очаровательной внешностью'
+    },
+    {
+        'name': 'Джек-рассел-терьер',
+        'image': 'jack_russell.jpg',
+        'description': 'Энергичная и бесстрашная небольшая порода'
+    },
+    {
+        'name': 'Чихуахуа',
+        'image': 'chihuahua.jpg',
+        'description': 'Самая маленькая порода собак с большим характером'
+    },
+    {
+        'name': 'Мопс',
+        'image': 'pug.jpg',
+        'description': 'Компактная порода с морщинистой мордой и веселым нравом'
+    },
+    {
+        'name': 'Бернский зенненхунд',
+        'image': 'bernese_mountain.jpg',
+        'description': 'Крупная порода с трехцветным окрасом и спокойным характером'
+    },
+    {
+        'name': 'Померанский шпиц',
+        'image': 'pomeranian.jpg',
+        'description': 'Маленькая пушистая порода с лисьей мордочкой'
+    }
+]
+
+@app.route('/lab2/dogs/')
+def dogs_list():
+    return render_template('dogs.html', dogs=dogs)
