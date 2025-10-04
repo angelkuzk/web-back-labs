@@ -664,3 +664,20 @@ def calc_default():
 @app.route('/lab2/calc/<int:a>')
 def calc_single(a):
     return redirect(f'/lab2/calc/{a}/1')
+
+books = [
+    {'author': 'Джоан Роулинг', 'title': 'Гарри Поттер и философский камень', 'genre': 'Фэнтези', 'pages': 432},
+    {'author': 'Джордж Оруэлл', 'title': '1984', 'genre': 'Антиутопия', 'pages': 328},
+    {'author': 'Рэй Брэдбери', 'title': '451° по Фаренгейту', 'genre': 'Научная фантастика', 'pages': 256},
+    {'author': 'Агата Кристи', 'title': 'Убийство в Восточном экспрессе', 'genre': 'Детектив', 'pages': 320},
+    {'author': 'Джон Толкин', 'title': 'Властелин Колец', 'genre': 'Фэнтези', 'pages': 1128},
+    {'author': 'Эрнест Хемингуэй', 'title': 'Старик и море', 'genre': 'Художественная проза', 'pages': 128},
+    {'author': 'Фрэнсис Фицджеральд', 'title': 'Великий Гэтсби', 'genre': 'Роман', 'pages': 218},
+    {'author': 'Габриэль Маркес', 'title': 'Сто лет одиночества', 'genre': 'Магический реализм', 'pages': 416},
+    {'author': 'Артур Конан Дойл', 'title': 'Шерлок Холмс', 'genre': 'Детектив', 'pages': 307},
+    {'author': 'Джейн Остин', 'title': 'Гордость и предубеждение', 'genre': 'Роман', 'pages': 432},
+]
+
+@app.route('/lab2/books/')
+def books_list():
+    return render_template('books.html', books=books)
