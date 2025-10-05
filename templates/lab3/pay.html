@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Оплата</h1>
+    
+    <div class="order-summary">
+        <h2>Ваш заказ:</h2>
+        <p><strong>Напиток:</strong> {{ drink_name }}</p>
+        {% if additions %}
+        <p><strong>Добавки:</strong> {{ additions|join(', ') }}</p>
+        {% endif %}
+        <div class="total-price">
+            Сумма к оплате: <span>{{ price }} руб.</span>
+        </div>
+    </div>
+
+    <form action="/lab3/success">
+        <input type="hidden" name="price" value="{{ price }}">
+        
+        <div class="form-section">
+            <label>Номер банковской карты:</label>
+            <input type="text" name="card" pattern="\d{16}" placeholder="0000000000000000" required>
+            <small>16 цифр без пробелов</small>
+        </div>
+        
+        <div class="form-section">
+            <label>Имя держателя карты:</label>
+            <input type="text" name="name" placeholder="IVAN IVANOV" required>
+        </div>
+
+        <div class="form-section">
+            <label>Номер CVV:</label>
+            <input type="text" name="cvv" pattern="\d{3}" placeholder="123" required>
+            <small>3 цифры на обратной стороне карты</small>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="pay-btn">Оплатить {{ price }} руб.</button>
+            <a href="/lab3/order" class="cancel-link">Отказаться</a>
+        </div>
+    </form>
+
+    <style>
+        .order-summary {
+            background: #fdf6f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #c9b8a5;
+        }
+
+        .total-price span {
+            color: #d84315;
+            font-size: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #5d4037;
+        }
+
+        .form-section input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #c9b8a5;
+            border-radius: 4px;
+            font-size: 16px;
+            background: #fff;
+        }
+
+        .form-section input:focus {
+            outline: none;
+            border-color: #ff9800;
+            box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.2);
+        }
+
+        .form-section small {
+            color: #8d6e63;
+            font-size: 12px;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pay-btn {
+            background: #ff9800;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .pay-btn:hover {
+            background: #f57c00;
+        }
+
+        .cancel-link {
+            color: #8d6e63;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #c9b8a5;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .cancel-link:hover {
+            background: #fdf6f0;
+            color: #5d4037;
+        }
+    </style>
+{% endblock %}
