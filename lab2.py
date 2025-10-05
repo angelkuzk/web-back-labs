@@ -29,7 +29,7 @@ def del_flower(flower_id):
     if flower_id >= len(flower_list):
         abort(404)
     flower_list.pop(flower_id)
-    return redirect(url_for('flowers_list'))
+    return redirect(url_for('lab2.flowers_list'))
 
 @lab2.route('/lab2/add_flower/', methods=['GET', 'POST'])
 def add_flower():
@@ -43,8 +43,8 @@ def add_flower():
                     break
             else:
                 flower_list.append({'name': name, 'price': 300})
-        return redirect(url_for('flowers_list'))
-    return redirect(url_for('flowers_list'))
+        return redirect(url_for('lab2.flowers_list'))
+    return redirect(url_for('lab2.flowers_list'))
 
 
 @lab2.route('/lab2/flowers/all')
@@ -64,7 +64,7 @@ def all_flowers():
 @lab2.route('/lab2/flowers/clear')
 def clear_flowers():
     flower_list.clear()
-    return redirect(url_for('flowers_list'))
+    return redirect(url_for('lab2.flowers_list'))
 
 @lab2.route('/lab2/example')
 def example():
