@@ -47,3 +47,11 @@ img {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(112, 110, 110, 0.2);
 }
+
+.error {
+    color: #ea0505;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    display: block;
+}
