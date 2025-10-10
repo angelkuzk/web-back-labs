@@ -187,3 +187,100 @@ def clear_settings():
     resp.set_cookie('font_size', '', expires=0)
     resp.set_cookie('font_family', '', expires=0)
     return resp
+products = [
+    {'name': 'iPhone 16 Pro', 'price': 133990, 'brand': 'Apple', 'color': 'Титановый', 'storage': '512GB'},
+    {'name': 'Samsung Galaxy S26', 'price': 62990, 'brand': 'Samsung', 'color': 'Черный', 'storage': '128GB'},
+    {'name': 'Xiaomi 15', 'price': 49990, 'brand': 'Xiaomi', 'color': 'Белый', 'storage': '1TB'},
+    {'name': 'Google Pixel 10', 'price': 56990, 'brand': 'Google', 'color': 'Серый', 'storage': '256GB'},
+    {'name': 'OnePlus 13', 'price': 69990, 'brand': 'OnePlus', 'color': 'Зеленый', 'storage': '256GB'},
+    {'name': 'iPhone 15', 'price': 49990, 'brand': 'Apple', 'color': 'Синий', 'storage': '128GB'},
+    {'name': 'Samsung Galaxy A57', 'price': 29990, 'brand': 'Samsung', 'color': 'Фиолетовый', 'storage': '128GB'},
+    {'name': 'Xiaomi Redmi 14', 'price': 9990, 'brand': 'Xiaomi', 'color': 'Черный', 'storage': '128GB'},
+    {'name': 'Realme 12 Pro+', 'price': 32990, 'brand': 'Realme', 'color': 'Золотой', 'storage': '256GB'},
+    {'name': 'Nothing Phone 3', 'price': 27990, 'brand': 'Nothing', 'color': 'Оранжевый', 'storage': '256GB'},
+    {'name': 'iPhone 14', 'price': 67990, 'brand': 'Apple', 'color': 'Розовый', 'storage': '256GB'},
+    {'name': 'Samsung Galaxy Z Flip 8', 'price': 74990, 'brand': 'Samsung', 'color': 'Сиреневый', 'storage': '256GB'},
+    {'name': 'Xiaomi Poco X8 Pro', 'price': 29990, 'brand': 'Xiaomi', 'color': 'Желтый', 'storage': '512GB'},
+    {'name': 'Google Pixel 8a', 'price': 27990, 'brand': 'Google', 'color': 'Голубой', 'storage': '128GB'},
+    {'name': 'OnePlus Ace 6', 'price': 41990, 'brand': 'OnePlus', 'color': 'Серый', 'storage': '512GB'},
+    {'name': 'iPhone SE 4', 'price': 32990, 'brand': 'Apple', 'color': 'Красный', 'storage': '64GB'},
+    {'name': 'Samsung Galaxy A27', 'price': 19990, 'brand': 'Samsung', 'color': 'Кремовый', 'storage': '256GB'},
+    {'name': 'OnePlus 14T', 'price': 44990, 'brand': 'OnePlus', 'color': 'Розовый', 'storage': '256GB'},
+    {'name': 'Realme GT8', 'price': 39990, 'brand': 'Realme', 'color': 'Фиолетовый', 'storage': '512GB'},
+    {'name': 'iPhone 12', 'price': 35990, 'brand': 'Apple', 'color': 'Черный', 'storage': '64GB'}
+]
+@lab3.route('/lab3/products')
+def products_search():
+    min_price_cookie = request.cookies.get('min_price')
+    max_price_cookie = request.cookies.get('max_price')
+    
+    all_prices = [product['price'] for product in products]
+    real_min_price = min(all_prices)
+    real_max_price = max(all_prices)
+    
+    min_price_input = request.args.get('min_price', '')
+    max_price_input = request.args.get('max_price', '')
+    
+    if 'reset' in request.args:
+        resp = make_response(render_template('lab3/products.html',
+                                           products=products,
+                                           min_price='',
+                                           max_price='',
+                                           real_min_price=real_min_price,
+                                           real_max_price=real_max_price,
+                                           filtered_count=len(products),
+                                           total_count=len(products)))
+        resp.set_cookie('min_price', '', expires=0)
+        resp.set_cookie('max_price', '', expires=0)
+        return resp
+    
+    if min_price_input or max_price_input:
+        min_price = int(min_price_input) if min_price_input else real_min_price
+        max_price = int(max_price_input) if max_price_input else real_max_price
+        
+        if min_price > max_price:
+            min_price, max_price = max_price, min_price
+        
+        filtered_products = [
+            product for product in products 
+            if min_price <= product['price'] <= max_price
+        ]
+        
+        resp = make_response(render_template('lab3/products.html',
+                                           products=filtered_products,
+                                           min_price=min_price,
+                                           max_price=max_price,
+                                           real_min_price=real_min_price,
+                                           real_max_price=real_max_price,
+                                           filtered_count=len(filtered_products),
+                                           total_count=len(products)))
+        resp.set_cookie('min_price', str(min_price), max_age=60*60*24*30)
+        resp.set_cookie('max_price', str(max_price), max_age=60*60*24*30)
+        return resp
+    
+    if min_price_cookie and max_price_cookie:
+        min_price = int(min_price_cookie)
+        max_price = int(max_price_cookie)
+        
+        filtered_products = [
+            product for product in products 
+            if min_price <= product['price'] <= max_price
+        ]
+        
+        return render_template('lab3/products.html',
+                             products=filtered_products,
+                             min_price=min_price,
+                             max_price=max_price,
+                             real_min_price=real_min_price,
+                             real_max_price=real_max_price,
+                             filtered_count=len(filtered_products),
+                             total_count=len(products))
+    
+    return render_template('lab3/products.html',
+                         products=products,
+                         min_price='',
+                         max_price='',
+                         real_min_price=real_min_price,
+                         real_max_price=real_max_price,
+                         filtered_count=len(products),
+                         total_count=len(products))
